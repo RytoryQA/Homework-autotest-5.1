@@ -44,12 +44,13 @@ public class DeliveryTest {
         $("[data-test-id=date] input").setValue(secondMeetingDate);
         $(byText("Запланировать")).click();
 
-        $("[data-test-id=replan-notification] .notification__content")
-                .shouldHave(Condition.exactText("У вас уже запланирована встреча на другую дату. Перепланировать?"))
-                .shouldBe(Condition.visible);
+        $(byText("Необходимо подтверждение")).shouldBe(Condition.visible, Duration.ofSeconds(15));
 
+        $("[data-test-id=replan-notification] .notification__title")
+                .shouldHave(Condition.exactText("Необходимо подтверждение"))
+                .shouldBe(Condition.visible,Duration.ofSeconds(15));
 
-        $("[data-test-id=replan-notification] button").click();
+        $("[data-test-id=replan-notification] .button").click();
 
         $("[data-test-id=success-notification] .notification__content")
                 .shouldHave(Condition.exactText("Встреча успешно запланирована на " + secondMeetingDate))
